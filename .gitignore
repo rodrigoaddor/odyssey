@@ -150,3 +150,6 @@ $RECYCLE.BIN/
 
 # Don't use NPM
 package-lock.json
+
+# Typescript output
+out/

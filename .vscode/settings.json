@@ -1,5 +1,7 @@
 {
   "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
   "editor.tabSize": 2,
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "debug.javascript.autoAttachFilter": "onlyWithFlag",
+  "files.eol": "\n"
 }

@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  bot:
+    container_name: odyssey_bot
+    image: 'node:15'
+    user: 'node'
+    working_dir: /home/node/api
+    env_file:
+      - .env
+    volumes:
+      - .:/home/node/api
+    command: bash -c "
+        npm install
+        && npm run build
+        && npm run start
+      "
+  
