@@ -4,11 +4,12 @@ import { EventListener } from '../data/event'
 export default new EventListener({
   name: 'dynChannel',
   event: 'voiceStateUpdate',
-  handle: async ({channel: oldChannel}, { channel: newChannel }) => {
+  handle: async ({ channel: oldChannel }, { channel: newChannel }) => {
     if (oldChannel) {
       const category = oldChannel.parent
       if (category) {
-        const name = oldChannel.name.split(' ').slice(0, -1).join(' ') + ' '
+        const name = oldChannel.name.split(' ').slice(0, -1)
+          .join(' ') + ' '
 
         const channels = category.children
           .filter((channel) => channel.name.startsWith(name) && channel.type == 'voice')
@@ -25,7 +26,8 @@ export default new EventListener({
     if (newChannel) {
       const category = newChannel.parent
       if (category) {
-        const name = newChannel.name.split(' ').slice(0, -1).join(' ') + ' '
+        const name = newChannel.name.split(' ').slice(0, -1)
+          .join(' ') + ' '
 
         const channels = category.children
           .filter((channel) => channel.name.startsWith(name) && channel.type == 'voice')
@@ -35,10 +37,9 @@ export default new EventListener({
         const lastChannel = channels.last()
 
         if (lastChannel) {
-          const lastNumber = +lastChannel.name.split(' ').slice(-1)[0] ?? 1
-
+          const lastNumber = +lastChannel.name.split(' ').slice(-1)[0]
           const withoutUsers = channels.filter((channel) => channel.members.size == 0)
-          if (withoutUsers.size == 0) {
+          if (withoutUsers.size == 0 && !isNaN(lastNumber)) {
             await newChannel.guild.channels.create(`${name}${lastNumber + 1}`, {
               type: 'voice',
               parent: category,
