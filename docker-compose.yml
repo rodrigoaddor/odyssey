@@ -5,6 +5,7 @@ services:
     image: 'node:15'
     user: 'node'
     working_dir: /home/node/api
+    restart: on-failure
     env_file:
       - .env
     volumes:
