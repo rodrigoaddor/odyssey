@@ -72,7 +72,7 @@ export default new Command('reminder').setDescription('Create and manage reminde
       .addOption(new CommandOption('time').setDescription('Time for the reminder')
         .setRequired(true))
       .addOption(new CommandOption('message').setDescription('Message to be reminded of'))
-      .setExecutor((command) => {
+      .setExecutor(async (command) => {
         const date = chrono.parseDate(command.options[0].value, new Date(), { forwardDate: true })
         date.setSeconds(0)
         date.setMilliseconds(0)
@@ -101,13 +101,14 @@ export default new Command('reminder').setDescription('Create and manage reminde
 
           // @ts-ignore
           bot.api.interactions(command.id, command.token).callback.post({
-            data: {
-              type: 3,
-              data: {
-                content: `<@${command.member.user.id}>, reminder created! I'll remind you at ${formattedDate}`,
-              },
-            },
+            data: { type: 2 },
           })
+
+          const channel = (await bot.channels.fetch(command.channel)) as TextChannel
+          const message = await channel.send(
+            `<@${command.member.user.id}>, reminder created! I'll remind you at ${formattedDate}`
+          )
+          setTimeout(() => message.delete(), 10e3)
         } else {
         // @ts-ignore
           bot.api.interactions(command.id, command.token).callback.post({
