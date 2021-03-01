@@ -3,5 +3,8 @@
   "editor.tabSize": 2,
   "editor.formatOnSave": true,
   "debug.javascript.autoAttachFilter": "onlyWithFlag",
-  "files.eol": "\n"
+  "files.eol": "\n",
+  "[typescript]": {
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+  }
 }

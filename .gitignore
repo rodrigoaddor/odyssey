@@ -153,3 +153,6 @@ package-lock.json
 
 # Typescript output
 out/
+
+# Bot stuff
+reminders.json

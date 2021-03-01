@@ -34,7 +34,7 @@ export class EventManager {
   // private available: IEventListener<keyof ClientEvents>[]
   public events: IEventListener<keyof ClientEvents>[]
 
-  public async load(): Promise<void> {
+  public async load(): Promise<this> {
     this.events = []
 
     const eventsPath = path.resolve(__dirname, process.env.EVENTS_PATH || '../events')
@@ -50,9 +50,11 @@ export class EventManager {
           }
         }
       }
+      return this
     } catch (e) {
       if (e.code == 'ENOENT') {
         console.warn(`Events folder "${eventsPath} doesn't exist!"`)
+        return this
       } else {
         throw e
       }

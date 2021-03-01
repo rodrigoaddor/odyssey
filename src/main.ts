@@ -1,19 +1,27 @@
-import Discord from 'discord.js'
+import { Client } from 'discord.js'
+import { CommandManager } from './data/command'
 import { EventManager } from './data/event'
 
-const bot = new Discord.Client({
+const bot = new Client({
   presence: { status: 'idle' },
 })
 
 bot.on('ready', async () => {
   console.log(`Logged in as ${bot.user?.tag}`)
 
-  const eventManager = EventManager.instance
-  await eventManager.load()
-  for (const { event, handle } of eventManager.events) {
-    bot.on(event, handle)
-  }
-  console.log(`Loaded ${eventManager.events.length} events.`)
+  EventManager.instance.load()
+    .then((manager) => {
+      for (const { event, handle } of manager.events) {
+        bot.on(event, handle)
+      }
+      console.log(`Loaded ${manager.events.length} events.`)
+    })
+
+  CommandManager.instance.load()
+    .then((manager) => {
+      manager.register(bot)
+      console.log(`Loaded ${manager.commands.length} commands.`)
+    })
 
   const prod = process.env.NODE_ENV == 'production'
   bot.user?.setPresence({
@@ -27,3 +35,5 @@ process.on('SIGTERM', () => {
 })
 
 bot.login(process.env.TOKEN)
+
+export default bot
