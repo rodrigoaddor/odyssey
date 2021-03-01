@@ -8,7 +8,7 @@ import bot from '../main'
 interface Reminder {
   date: number
   channel: string
-  message: string
+  message?: string
   author: string
   createdAt: number
 }
@@ -43,17 +43,17 @@ const checkReminders = async () => {
         const textChannel = channel as TextChannel
         const author = await textChannel.guild.members.fetch(reminder.author)
         const mention = `<@${author.id}>`
-        textChannel.send(
-          new MessageEmbed({
+        textChannel.send(mention, {
+          embed: new MessageEmbed({
             title: 'Reminder',
-            description: `${!reminder.message.includes(mention) ? mention + '\n' : ''}${reminder.message}`,
+            description: reminder.message,
             timestamp: reminder.createdAt,
             footer: {
               text: `Reminder by ${author.displayName}`,
               icon_url: author.user.avatarURL() ?? undefined,
             },
-          })
-        )
+          }),
+        })
       }
 
       modified = true
@@ -83,7 +83,7 @@ export default new Command('reminder').setDescription('Create and manage reminde
             channel: command.channel,
             createdAt: Date.now(),
             author: command.member.user.id,
-            message: command.options[1].value,
+            message: command.options[1]?.value,
           }
           reminders.push(reminder)
           saveReminders()
