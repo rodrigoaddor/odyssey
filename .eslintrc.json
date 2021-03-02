@@ -18,7 +18,7 @@
     "max-len": ["error", { "code": 120 }],
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/ban-ts-comment": "off",
-    "newline-per-chained-call": ["error"],
+    "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 1 }],
     "function-paren-newline": ["error", "multiline-arguments"]
   }
 }

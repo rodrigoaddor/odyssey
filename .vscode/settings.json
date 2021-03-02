@@ -1,10 +1,10 @@
 {
-  "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   "editor.tabSize": 2,
-  "editor.formatOnSave": true,
   "debug.javascript.autoAttachFilter": "onlyWithFlag",
   "files.eol": "\n",
+  "eslint.format.enable": true,
   "[typescript]": {
-    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   }
 }

@@ -18,20 +18,22 @@ const remindersPath = path.resolve(process.cwd(), process.env.REMINDERS_PATH ?? 
 
 const saveReminders = () => fs.writeFile(remindersPath, JSON.stringify(reminders), { encoding: 'utf-8' })
 
-fs.readFile(remindersPath, { encoding: 'utf-8', flag: 'a+' }).then((data) => {
-  try {
-    reminders = JSON.parse(data)
-  } catch (_) {
-    console.log('Invalid or empty reminders file. Saving new...')
-    saveReminders()
-  }
+fs.readFile(remindersPath, { encoding: 'utf-8', flag: 'a+' })
+  .then((data) => {
+    try {
+      reminders = JSON.parse(data)
+    } catch (_) {
+      console.log('Invalid or empty reminders file. Saving new...')
+      saveReminders()
+    }
 
-  checkReminders()
-  setTimeout(() => {
     checkReminders()
-    setInterval(checkReminders, 60e3)
-  }, 60e3 - (new Date().getTime() % 60e3) + 100)
-})
+    setTimeout(() => {
+      checkReminders()
+      setInterval(checkReminders, 60e3)
+    }, 60e3 - (new Date()
+      .getTime() % 60e3) + 100)
+  })
 
 const checkReminders = async () => {
   let modified = false
@@ -64,14 +66,17 @@ const checkReminders = async () => {
   if (modified) saveReminders()
 }
 
-export default new Command('reminder').setDescription('Create and manage reminders')
+export default new Command('reminder')
+  .setDescription('Create and manage reminders')
   .addOption(
     new CommandOption('new')
       .setType(CommandOptionType.SubCommand)
       .setDescription('Create a new reminder')
-      .addOption(new CommandOption('time').setDescription('Time for the reminder')
+      .addOption(new CommandOption('time')
+        .setDescription('Time for the reminder')
         .setRequired(true))
-      .addOption(new CommandOption('message').setDescription('Message to be reminded of'))
+      .addOption(new CommandOption('message')
+        .setDescription('Message to be reminded of'))
       .setExecutor(async (command) => {
         const date = chrono.parseDate(command.options[0].value, new Date(), { forwardDate: true })
         date.setSeconds(0)

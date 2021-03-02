@@ -171,9 +171,10 @@ export class CommandManager {
       const command = this.commands.find(({ name }) => name == commandName)
       if (command && bot.user && message.guild) {
         const api: any = bot['api']
-        await api.applications(bot.user.id).guilds(message.guild.id).commands.post({
-          data: command,
-        })
+        await api.applications(bot.user.id)
+          .guilds(message.guild.id).commands.post({
+            data: command,
+          })
         console.log(`Registered command "${command.name}" for guild "${message.guild.name}"`)
       }
     }
