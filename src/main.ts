@@ -32,6 +32,7 @@ bot.on('ready', async () => {
 
 process.on('SIGTERM', () => {
   bot.destroy()
+  process.exit()
 })
 
 bot.login(process.env.TOKEN)
