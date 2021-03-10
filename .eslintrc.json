@@ -15,10 +15,11 @@
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "single"],
     "semi": ["error", "never"],
-    "max-len": ["error", { "code": 120 }],
+    "max-len": ["error", { "code": 180 }],
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/ban-ts-comment": "off",
-    "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 1 }],
-    "function-paren-newline": ["error", "multiline-arguments"]
+    "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 2 }],
+    "function-paren-newline": ["error", "multiline-arguments"],
+    "no-multi-spaces": "error"
   }
 }

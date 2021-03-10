@@ -4,6 +4,7 @@ import { Client, Message } from 'discord.js'
 import { Interaction, InteractionType } from './interaction'
 
 export type CommandExecutor = (options: { [key: string]: any }) => void
+type OnLoad = (bot: Client) => void
 
 export class Command {
   name: string
@@ -32,6 +33,7 @@ export class CommandOption extends Command {
   required?: boolean
   choices?: CommandOptionChoice[]
   executor?: CommandExecutor
+  onLoad?: OnLoad
 
   constructor(name: string) {
     super(name)

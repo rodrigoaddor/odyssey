@@ -1,4 +1,4 @@
-import { GuildMember,  Snowflake } from 'discord.js'
+import { GuildMember, Snowflake } from 'discord.js'
 
 export interface Interaction {
   id: Snowflake
